@@ -18,7 +18,6 @@ const DashboardPage = () => {
           return (
           <CardTool
             key={tool.href}
-            color={tool.color}
             href={tool.href}
             icon={tool.icon}
             label={tool.label}
