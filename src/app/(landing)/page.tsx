@@ -1,19 +1,28 @@
 import { Button } from "@/components/ui/button";
-import { SignIn } from "@clerk/nextjs";
+import { SignIn, currentUser } from "@clerk/nextjs";
 import Link from "next/link";
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const user = await currentUser();
   return (
     <div>
       Public route
-      <div>
-        <Link href="/sign-in">
-          <Button>Login</Button>
-        </Link>
-        <Link href="/sign-up">
-          <Button>Register</Button>
-        </Link>
-      </div>
+      {!user ? (
+        <div>
+          <Link href="/sign-in">
+            <Button>Login</Button>
+          </Link>
+          <Link href="/sign-up">
+            <Button>Register</Button>
+          </Link>
+        </div>
+      ) : (
+        <div>
+          <Link href="/dashboard">
+            <Button>Dashboard</Button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
