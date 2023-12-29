@@ -13,7 +13,9 @@ const DashboardPage = () => {
         </p>
       </div>
       <div className="px-4 md:px-20 lg:px-32 space-y-4">
-        {tools.map((tool) => (
+        {tools.map((tool) => {
+          if(tool.isTool)
+          return (
           <CardTool
             key={tool.href}
             color={tool.color}
@@ -21,7 +23,7 @@ const DashboardPage = () => {
             icon={tool.icon}
             label={tool.label}
           />
-        ))}
+        )})}
       </div>
     </div>
   );

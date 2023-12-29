@@ -13,6 +13,7 @@ export interface IToolsProps {
   icon: LucideIcon;
   label: string;
   href: string;
+  isTool?: boolean;
   color: string;
 }
 export const tools: IToolsProps[] = [
@@ -27,30 +28,35 @@ export const tools: IToolsProps[] = [
     label: "Conversation",
     href: "/dashboard/conversation",
     color: "text-violet-500",
+    isTool: true,
   },
   {
     icon: ImageIcon,
     label: "Image Generation",
     href: "/dashboard/image",
     color: "text-pink-500",
+    isTool: true,
   },
   {
     icon: VideoIcon,
     label: "Video Generation",
     href: "/dashboard/video",
     color: "text-orange-500",
+    isTool: true,
   },
   {
     icon: Music,
     label: "Music Generation",
     href: "/dashboard/music",
     color: "text-emerald-500",
+    isTool: true,
   },
   {
     icon: Code,
     label: "Code Generation",
     href: "/dashboard/code",
     color: "text-green-500",
+    isTool: true,
   },
   {
     icon: Settings,
