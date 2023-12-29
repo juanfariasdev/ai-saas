@@ -13,8 +13,7 @@ export function SidebarItem({ icon: Icon, label, href, color }: IToolsProps) {
 
   const isActive =
     (pathname === "/" && href === "/") ||
-    pathname === href ||
-    pathname?.startsWith(`${href}/`);
+    pathname === href
 
   return (
     <button
