@@ -1,20 +1,9 @@
+import { IToolsProps } from "@/lib/tools";
 import { cn } from "@/lib/utils";
-import { LucideIcon } from "lucide-react";
+
 import { usePathname, useRouter } from "next/navigation";
 
-interface ISidebarItemProps {
-  icon: LucideIcon;
-  label: string;
-  href: string;
-  color: string;
-}
-
-export function SidebarItem({
-  icon: Icon,
-  label,
-  href,
-  color,
-}: ISidebarItemProps) {
+export function SidebarItem({ icon: Icon, label, href, color }: IToolsProps) {
   const pathname = usePathname();
   const router = useRouter();
 

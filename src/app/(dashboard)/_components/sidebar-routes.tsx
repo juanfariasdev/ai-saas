@@ -1,65 +1,10 @@
 "use client";
 
-import {
-  BarChart,
-  Code,
-  Compass,
-  ImageIcon,
-  Layout,
-  LayoutDashboard,
-  List,
-  MessageSquare,
-  Music,
-  Settings,
-  VideoIcon,
-} from "lucide-react";
+import { tools } from "@/lib/tools";
 import { SidebarItem } from "./sidebar-item";
 import { usePathname } from "next/navigation";
+import { BarChart, List } from "lucide-react";
 
-const guestRoutes = [
-  {
-    icon: LayoutDashboard,
-    label: "Dashboard",
-    href: "/dashboard",
-    color: "text-sky-500",
-  },
-  {
-    icon: MessageSquare,
-    label: "Conversation",
-    href: "/dashboard/conversation",
-    color: "text-violet-500",
-  },
-  {
-    icon: ImageIcon,
-    label: "Image Generation",
-    href: "/dashboard/image",
-    color: "text-pink-500",
-  },
-  {
-    icon: VideoIcon,
-    label: "Video Generation",
-    href: "/dashboard/video",
-    color: "text-orange-500",
-  },
-  {
-    icon: Music,
-    label: "Music Generation",
-    href: "/dashboard/music",
-    color: "text-emerald-500",
-  },
-  {
-    icon: Code,
-    label: "Code Generation",
-    href: "/dashboard/code",
-    color: "text-green-500",
-  },
-  {
-    icon: Settings,
-    label: "Settings",
-    href: "/dashboard/settings",
-    color: "text-white",
-  },
-];
 const adminRoutes = [
   {
     icon: List,
@@ -80,7 +25,7 @@ export function SidebarRoutes() {
 
   const isAdminPage = pathname.includes("/admin");
 
-  const routes = isAdminPage ? adminRoutes : guestRoutes;
+  const routes = isAdminPage ? adminRoutes : tools;
   return (
     <div className="flex flex-col w-full">
       {routes.map((route) => (
