@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 import { usePathname, useRouter } from "next/navigation";
 
-export function SidebarItem({ icon: Icon, label, href, color }: IToolsProps) {
+export function SidebarItem({ icon: Icon, label, href }: IToolsProps) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -26,7 +26,7 @@ export function SidebarItem({ icon: Icon, label, href, color }: IToolsProps) {
       )}
     >
       <div className="flex items-center gap-x-2 py-4">
-        <Icon size={22} className={cn("text-white", color)} />
+        <Icon.image size={22} className={cn("text-white", Icon.color)} />
         {label}
       </div>
       <div

@@ -6,62 +6,88 @@ import {
   MessageSquare,
   Music,
   Settings,
-  VideoIcon,
+  VideoIcon
 } from "lucide-react";
 
 export interface IToolsProps {
-  icon: LucideIcon;
   label: string;
+  description?: string;
+  icon: {
+    color: string;
+    image: LucideIcon;
+  };
   href: string;
   isTool?: boolean;
-  color: string;
 }
 export const tools: IToolsProps[] = [
   {
-    icon: LayoutDashboard,
+    icon: {
+      color: "text-sky-500",
+      image: LayoutDashboard
+    },
     label: "Dashboard",
     href: "/dashboard",
-    color: "text-sky-500",
   },
   {
-    icon: MessageSquare,
+    icon: {
+      color: "text-violet-500",
+      image: MessageSquare
+    },
     label: "Conversation",
     href: "/dashboard/ai/conversation",
-    color: "text-violet-500",
     isTool: true,
   },
   {
-    icon: ImageIcon,
+    icon: {
+      color: "text-pink-500",
+      image: ImageIcon
+    },
     label: "Image Generation",
     href: "/dashboard/ai/image",
-    color: "text-pink-500",
     isTool: true,
   },
   {
-    icon: VideoIcon,
+    icon: {
+      color: "text-orange-500",
+      image: VideoIcon
+    },
     label: "Video Generation",
     href: "/dashboard/ai/video",
-    color: "text-orange-500",
     isTool: true,
   },
   {
-    icon: Music,
+    icon: {
+      image: Music,
+      color: "text-emerald-500",
+    },
     label: "Music Generation",
     href: "/dashboard/ai/music",
-    color: "text-emerald-500",
     isTool: true,
   },
   {
-    icon: Code,
+    icon: {
+      image: Code,
+      color: "text-green-500",
+    },
     label: "Code Generation",
     href: "/dashboard/ai/code",
-    color: "text-green-500",
+
     isTool: true,
   },
   {
-    icon: Settings,
+    icon: {
+      image: Settings,
+      color: "text-white",
+    },
     label: "Settings",
     href: "/dashboard/settings",
-    color: "text-white",
+
   },
 ];
+
+export function findTool(href: string) {
+  const item = tools.find(tool => tool.href === href)
+
+  return item
+
+}
