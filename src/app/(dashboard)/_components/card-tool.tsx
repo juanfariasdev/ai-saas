@@ -9,7 +9,7 @@ export function CardTool({ href, icon, label }: IToolsProps) {
     <Link href={href} passHref legacyBehavior>
       <Card className="p-4 border-black/5 flex items-center justify-between hover:shadow-md transition cursor-pointer">
         <div className="flex items-center gap-x-4">
-          <div className="p-2 w-fit rounded-md mix-blend-difference bg-zinc-800/30">
+          <div className={cn("p-2 w-fit rounded-md", icon.background)}>
             <icon.image className={cn("w-8 h-8", icon.color)} />
           </div>
           <div className="font-semibold">{label}</div>
