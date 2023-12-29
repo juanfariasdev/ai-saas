@@ -1,5 +1,5 @@
 import { tools } from "@/lib/tools";
-import { CardTool } from "../../../_components/card-tool";
+import { CardTool } from "../../../../_components/card-tool";
 
 const DashboardPage = () => {
   return (
@@ -18,7 +18,6 @@ const DashboardPage = () => {
           return (
           <CardTool
             key={tool.href}
-            color={tool.color}
             href={tool.href}
             icon={tool.icon}
             label={tool.label}
