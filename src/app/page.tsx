@@ -1,6 +1,5 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { SignIn } from "@clerk/nextjs";
 
 export default function Home() {
-  return <Button>Unprotected Page</Button>;
+  return <p>Public route</p>;
 }
