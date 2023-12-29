@@ -12,7 +12,7 @@ export const Heading = () => {
     const {label, description, icon } = info;
 
     return (
-        <div className="px-4 lg:px-8 flex items-center gap-x-3 mb-8">
+        <div className="flex items-center gap-x-3 mb-8">
             <div className={cn("p-2 w-fit rounded-md", icon.background)}>
                 <icon.image className={cn("w-10 h-10", icon.color)}/>
             </div>
