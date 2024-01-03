@@ -1,14 +1,17 @@
 "use client"
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
+import { useState } from 'react';
 import { formSchema } from "./constants";
 
 const ConversationAiPage = () => {
+  const [message, setMessage] = useState("")
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues:{
@@ -19,7 +22,15 @@ const ConversationAiPage = () => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) =>{
-    console.log(values)
+    try{
+      await axios.post('/api/conversation', {
+        messages: values.prompt
+      })
+    } catch(err){
+      console.error(err);
+    } finally{
+
+    }
   }
 
 
@@ -60,10 +71,13 @@ const ConversationAiPage = () => {
 
         </form>
       </Form>
+      {message && (
     <div className='mt-4'>
-      <h2 className='text-xl font-bold mt-2'>AI Response</h2>
-      <h2 className='text-sm'>Text Content</h2>
+    <h2 className='text-xl font-bold mt-2'>AI Response</h2>
+    <h2 className='text-sm'>{message}</h2>
     </div>
+      )}
+   
     </div>
   );
 };
