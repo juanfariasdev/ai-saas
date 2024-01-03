@@ -1,17 +1,19 @@
 "use client"
 import { zodResolver } from '@hookform/resolvers/zod';
-import axios from 'axios';
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
+import { cn } from '@/lib/utils';
+import { ChatCompletionMessageParam } from 'openai/resources';
 import { useState } from 'react';
 import { formSchema } from "./constants";
 
 const ConversationAiPage = () => {
-  const [message, setMessage] = useState("")
+  const [messages, setMessage] = useState<ChatCompletionMessageParam[]>([])
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues:{
@@ -23,10 +25,23 @@ const ConversationAiPage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) =>{
     try{
-      await axios.post('/api/conversation', {
-        messages: values.prompt
-      })
+     const userMessage: ChatCompletionMessageParam = {
+      role: "user",
+      content: values.prompt
+     }
+
+     const newMessages = [...messages, userMessage]
+
+     const response = await axios.post('/api/conversation', {
+      messages: newMessages
+     })
+
+     setMessage((current)=> [...current, userMessage, response.data])
+
+     form.reset()
+
     } catch(err){
+      // TODO: Open Pro Modal
       console.error(err);
     } finally{
 
@@ -71,10 +86,18 @@ const ConversationAiPage = () => {
 
         </form>
       </Form>
-      {message && (
+      {messages && (
     <div className='mt-4'>
     <h2 className='text-xl font-bold mt-2'>AI Response</h2>
-    <h2 className='text-sm'>{message}</h2>
+    <div className='space-y-4 mt-4 text-sm'>
+      <div className='flex flex-col-reserve gap-y-4'>
+        {messages.map((message)=> (
+          <div key={message.content}
+          className={cn("p-8 w-full flex items-start gap-x-8 rounded-lg", message.role === "user" ? "bg-white border border-black/10": "bg-muted")}
+          >{message.content!}</div>
+        ))}
+      </div>
+    </div>
     </div>
       )}
    
