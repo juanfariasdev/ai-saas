@@ -101,6 +101,5 @@ export const tools: IToolsProps[] = [
 
 export function findTool(href: string) {
 	const item = tools.find((tool) => tool.href === href);
-
 	return item;
 }

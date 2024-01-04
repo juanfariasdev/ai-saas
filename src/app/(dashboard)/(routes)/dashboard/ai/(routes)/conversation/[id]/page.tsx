@@ -16,7 +16,6 @@ import { useState } from 'react';
 import { formSchema } from '../constants';
 
 const ConversationAiPage = () => {
-
 	const [messages, setMessage] = useState<ChatCompletionMessageParam[]>([]);
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
@@ -82,45 +81,47 @@ const ConversationAiPage = () => {
 							</FormItem>
 						)}
 					/>
-					<Button className="col-span-12 lg:col-span-2 h-full" disabled={isLoading}>Generate</Button>
+					<Button
+						className="col-span-12 lg:col-span-2 h-full"
+						disabled={isLoading}
+					>
+						Generate
+					</Button>
 				</form>
 			</Form>
-			<div className='mt-4'>
-				{messages.length > 0 && <h2 className="text-xl font-bold mt-2">AI Response</h2>}
-				{isLoading && <div className='flex flex-col justify-center items-center bg-slate-100 rounded-xl p-8 animate-pulse'>
-					<LoadingSpinner className='h-10 w-10 text-purple-500' />
-					<p className='mt-2 text-lg text-gray-600'>AI is thinking...</p>
-				</div>}
+			<div className="mt-4">
+				{messages.length > 0 && (
+					<h2 className="text-xl font-bold mt-2">AI Response</h2>
+				)}
+				{isLoading && (
+					<div className="flex flex-col justify-center items-center bg-slate-100 rounded-xl p-8 animate-pulse">
+						<LoadingSpinner className="h-10 w-10 text-purple-500" />
+						<p className="mt-2 text-lg text-gray-600">AI is thinking...</p>
+					</div>
+				)}
 				{messages.length > 0 && (
 					<>
 						<div className="space-y-4 mt-4 text-sm">
 							<div className="flex flex-col-reverse gap-y-4">
-								{
-									messages.map((message, key) => (
-										<div
-											key={key}
-											className={cn(
-												'px-6 py-8 w-full flex items-start gap-x-6 rounded-lg',
-												message.role === 'user'
-													? 'bg-white border border-black/10'
-													: 'bg-muted',
-											)}
-										>
-											{message.role === 'user' ? <UserAvatar /> : <BotAvatar />}
-											<div className='w-full'>
-												<p className='font-bold'>
-													{message.role}
-												</p>
-												<p>
-													{String(message.content)}
-												</p>
-											</div>
-
+								{messages.map((message, key) => (
+									<div
+										key={key}
+										className={cn(
+											'px-6 py-8 w-full flex items-start gap-x-6 rounded-lg',
+											message.role === 'user'
+												? 'bg-white border border-black/10'
+												: 'bg-muted',
+										)}
+									>
+										{message.role === 'user' ? <UserAvatar /> : <BotAvatar />}
+										<div className="w-full">
+											<p className="font-bold">{message.role}</p>
+											<p>{String(message.content)}</p>
 										</div>
-									))}
+									</div>
+								))}
 							</div>
 						</div>
-
 					</>
 				)}
 			</div>

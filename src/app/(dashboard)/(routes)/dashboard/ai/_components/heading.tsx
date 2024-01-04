@@ -5,8 +5,8 @@ import { usePathname } from 'next/navigation';
 
 export const Heading = () => {
 	const pathname = usePathname();
-
 	const info = findTool(pathname);
+
 	if (!info) return null;
 
 	const { label, description, icon } = info;
