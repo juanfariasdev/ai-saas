@@ -4,15 +4,19 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { BotAvatar } from '@/components/bot-avatar';
+import { LoadingSpinner } from '@/components/loading-spinner';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
+import { UserAvatar } from '@/components/user-avatar';
 import { cn } from '@/lib/utils';
 import { ChatCompletionMessageParam } from 'openai/resources';
 import { useState } from 'react';
 import { formSchema } from '../constants';
 
 const ConversationAiPage = () => {
+
 	const [messages, setMessage] = useState<ChatCompletionMessageParam[]>([]);
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
@@ -85,18 +89,31 @@ const ConversationAiPage = () => {
 				<div className="mt-4">
 					<h2 className="text-xl font-bold mt-2">AI Response</h2>
 					<div className="space-y-4 mt-4 text-sm">
-						<div className="flex flex-col-reserve gap-y-4">
-							{messages.map((message, key) => (
+						<div className="flex flex-col-reverse gap-y-4">
+							{isLoading ? <div className='flex flex-col justify-center items-center bg-slate-100 rounded-xl p-8 animate-pulse'>
+								<LoadingSpinner className='h-10 w-10 text-purple-500' />
+								<p className='mt-2 text-lg text-gray-600'>AI is thinking...</p>
+							</div> : 
+							messages.map((message, key) => (
 								<div
 									key={key}
 									className={cn(
-										'p-8 w-full flex items-start gap-x-8 rounded-lg',
+										'px-6 py-8 w-full flex items-start gap-x-6 rounded-lg',
 										message.role === 'user'
 											? 'bg-white border border-black/10'
 											: 'bg-muted',
 									)}
 								>
-									{String(message.content)}
+										{message.role === 'user'? <UserAvatar/> : <BotAvatar/>}
+									<div className='w-full'>
+										<p className='font-bold'>
+											{message.role}
+										</p>
+										<p>
+											{String(message.content)}
+										</p>
+									</div>
+
 								</div>
 							))}
 						</div>
