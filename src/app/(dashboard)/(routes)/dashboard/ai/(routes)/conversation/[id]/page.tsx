@@ -13,7 +13,7 @@ import { UserAvatar } from '@/components/user-avatar';
 import { cn } from '@/lib/utils';
 import { ChatCompletionMessageParam } from 'openai/resources';
 import { useState } from 'react';
-import { formSchema } from '../constants';
+import { formSchema } from '../../../_components/constants';
 
 const ConversationAiPage = () => {
 	const [messages, setMessage] = useState<ChatCompletionMessageParam[]>([]);
