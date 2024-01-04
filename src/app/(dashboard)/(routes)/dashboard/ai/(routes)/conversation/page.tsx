@@ -1,108 +1,121 @@
-"use client"
-import { zodResolver } from '@hookform/resolvers/zod';
-import axios from "axios";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { CardTool } from "@/app/(dashboard)/_components/card-tool";
+import { IToolsProps } from "@/lib/tools";
+import {
+  BadgeDollarSign,
+  BookHeart,
+  BookOpenCheck,
+  BookText,
+  Lightbulb,
+  Mic2,
+} from "lucide-react";
 
-import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
-import { cn } from '@/lib/utils';
-import { ChatCompletionMessageParam } from 'openai/resources';
-import { useState } from 'react';
-import { formSchema } from "./constants";
+interface IConversationProps extends IToolsProps {
+  group: "Marketing" | "Product" | "Management" | "Other";
+}
 
-const ConversationAiPage = () => {
-  const [messages, setMessage] = useState<ChatCompletionMessageParam[]>([])
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues:{
-      prompt: ""
-    }
-  })
-
-  const isLoading = form.formState.isSubmitting;
-
-  const onSubmit = async (values: z.infer<typeof formSchema>) =>{
-    try{
-     const userMessage: ChatCompletionMessageParam = {
-      role: "user",
-      content: values.prompt
-     }
-
-     const newMessages = [...messages, userMessage]
-
-     const response = await axios.post('/api/conversation', {
-      messages: newMessages
-     })
-
-     setMessage((current)=> [...current, userMessage, response.data])
-
-     form.reset()
-
-    } catch(err){
-      // TODO: Open Pro Modal
-      console.error(err);
-    } finally{
-
-    }
-  }
-
+const ConversationsAiPage = () => {
+  const conversations: IConversationProps[] = [
+    {
+      label: "Pitch Analyser",
+      description: "Have your pitch evaluated and explained.",
+      group: "Marketing",
+      href: "/dashboard/ai/conversation/pitchAnalyser",
+      icon: {
+        image: Mic2,
+        color: "text-red-500",
+        background: "bg-red-200",
+      },
+    },
+    {
+      label: "Post Maker",
+      description: "Create content for your instagram",
+      group: "Marketing",
+      href: "/dashboard/ai/conversation/postMaker",
+      icon: {
+        image: BookHeart,
+        color: "text-pink-500",
+        background: "bg-pink-200",
+      },
+    },
+    {
+      label: "Book Summary",
+      description:
+        "A summary of key insights from books published through 2021 that you choose",
+      group: "Marketing",
+      href: "/dashboard/ai/conversation/bookSummary",
+      icon: {
+        image: BookOpenCheck,
+        color: "text-blue-500",
+        background: "bg-blue-200",
+      },
+    },
+    {
+      label: "Sales Letter",
+      description: "Create a sales letter for your product",
+      group: "Marketing",
+      href: "/dashboard/ai/conversation/salesLetter",
+      icon: {
+        image: BadgeDollarSign,
+        color: "text-yellow-600",
+        background: "bg-yellow-200",
+      },
+    },
+    {
+      label: "Test Maker",
+      description: "Describe your challenge and get test suggestions",
+      group: "Marketing",
+      href: "/dashboard/ai/conversation/testMaker",
+      icon: {
+        image: BookText,
+        color: "text-green-500",
+        background: "bg-green-200",
+      },
+    },
+    {
+      label: "The Big Idea",
+      description:
+        "Unlock your creativity with big idea ideas for your launches",
+      group: "Marketing",
+      href: "/dashboard/ai/conversation/bigIdea",
+      icon: {
+        image: Lightbulb,
+        color: "text-white",
+        background: "bg-zinc-800",
+      },
+    },
+  ];
 
   return (
     <div>
-      <Form {...form}>
-        <form 
-        onSubmit={form.handleSubmit(onSubmit)}
-        className='
-        rounded-lg
-        border
-        w-full
-        p-4
-        px-3
-        md:px-3
-        focus-within:shadow-sm
-        grid
-        grid-cols-12
-        gap-2
-        '
-        >
-          <FormField 
-          name="prompt"
-          render={({field})=>(
-            <FormItem className='col-span-12 lg:col-span-10'>
-              <FormControl className='m-0 p-0'>
-                <Textarea 
-                className=' h-10 border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent'
-                disabled={isLoading}
-                placeholder='If you could have a conversation with any vegetable, which one would it be and why?'
-                {...field}
-                />
+      <h2 className="text-xl font-bold">Marketing</h2>
+      <div className="mt-2 flex flex-wrap gap-2">
+        {conversations.map((conversation) => (
+          <CardTool
+            key={conversation.href}
+            href={conversation.href}
+            icon={conversation.icon}
+            description={conversation.description}
+            label={conversation.label}
+            arrow={false}
+            className="min-w-60 md:min-w-72 flex-1"
+          />
 
-              </FormControl>
-            </FormItem>
-          )}/>
-          <Button className='col-span-12 lg:col-span-2 h-full'>Generate</Button>
-
-        </form>
-      </Form>
-      {messages && (
-    <div className='mt-4'>
-    <h2 className='text-xl font-bold mt-2'>AI Response</h2>
-    <div className='space-y-4 mt-4 text-sm'>
-      <div className='flex flex-col-reserve gap-y-4'>
-        {messages.map((message)=> (
-          <div key={message.content}
-          className={cn("p-8 w-full flex items-start gap-x-8 rounded-lg", message.role === "user" ? "bg-white border border-black/10": "bg-muted")}
-          >{message.content!}</div>
+          // <div
+          //   key={conversation.label}
+          //   className="flex gap-2 w-full max-w-72 rounded-md p-3"
+          // >
+          //   <div className="flex items-center">
+          //     {<conversation.icon.image width={36} height={36} />}
+          //   </div>
+          //   <div className="h-full">
+          //     <h3 className="font-bold">{conversation.label}</h3>
+          //     <p className="h-full">{conversation.description}</p>
+          //   </div>
+          // </div>
         ))}
       </div>
-    </div>
-    </div>
-      )}
-   
     </div>
   );
 };
 
-export default ConversationAiPage;
+export default ConversationsAiPage;

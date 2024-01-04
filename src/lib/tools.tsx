@@ -6,7 +6,7 @@ import {
   MessageSquare,
   Music,
   Settings,
-  VideoIcon
+  VideoIcon,
 } from "lucide-react";
 
 export interface IToolsProps {
@@ -27,7 +27,7 @@ export const tools: IToolsProps[] = [
     icon: {
       image: LayoutDashboard,
       color: "text-sky-500",
-      background:"bg-sky-800/20",
+      background: "bg-sky-200",
     },
     href: "/dashboard",
   },
@@ -37,7 +37,7 @@ export const tools: IToolsProps[] = [
     icon: {
       image: MessageSquare,
       color: "text-violet-500",
-      background:"bg-violet-200",
+      background: "bg-violet-200",
     },
     href: "/dashboard/ai/conversation",
     isTool: true,
@@ -48,7 +48,7 @@ export const tools: IToolsProps[] = [
     icon: {
       image: ImageIcon,
       color: "text-pink-500",
-      background:"bg-pink-200",
+      background: "bg-pink-200",
     },
     href: "/dashboard/ai/image",
     isTool: true,
@@ -59,7 +59,7 @@ export const tools: IToolsProps[] = [
     icon: {
       image: VideoIcon,
       color: "text-orange-500",
-      background:"bg-orange-200",
+      background: "bg-orange-200",
     },
     href: "/dashboard/ai/video",
     isTool: true,
@@ -70,7 +70,7 @@ export const tools: IToolsProps[] = [
     icon: {
       image: Music,
       color: "text-emerald-500",
-      background:"bg-emerald-200",
+      background: "bg-emerald-200",
     },
     href: "/dashboard/ai/music",
     isTool: true,
@@ -81,7 +81,7 @@ export const tools: IToolsProps[] = [
     icon: {
       image: Code,
       color: "text-green-500",
-      background:"bg-green-200",
+      background: "bg-green-200",
     },
     href: "/dashboard/ai/code",
 
@@ -93,16 +93,14 @@ export const tools: IToolsProps[] = [
     icon: {
       image: Settings,
       color: "text-white",
-      background:"bg-zinc-200",
+      background: "bg-zinc-200",
     },
     href: "/dashboard/settings",
-
   },
 ];
 
 export function findTool(href: string) {
-  const item = tools.find(tool => tool.href === href)
+  const item = tools.find((tool) => tool.href === href);
 
-  return item
-
+  return item;
 }
